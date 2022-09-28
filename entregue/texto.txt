@@ -1,0 +1,68 @@
+Com uma pequena busca na internet descobri que seria necessário a libraria crypto, que se deveria usar o metodo createHmac().
+
+A partir da ai testar até conseguir obter a Hash que foi fornecida com os parâmetros AA,1000.
+
+Em seguida descobrir uma forma de usar os caracteres fornecidos que acabou por ser apenas uma string.
+
+A partir dai foi apenas adicionar vários ciclos FOR que percorreram os caracteres por uma ordem garantindo que todas as combinações eram testadas.
+
+
+
+
+
+------------------Código------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+//imports
+var crypto = require('crypto');
+
+//variables
+var hash_to_find = "5f1cfde9d3ba56450f725230cd48a261a215e700b1ee74c104ee1b84ddc4445e";
+//char array to through during the search
+var char_array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÀÁÂÃÇÈÉÊÌÍÒÓÔÕÙÚÛàáâãçèéêìíîòóôõùúû';
+
+//code
+//go through all conbinations of characters with 2 for cycles
+for (var i = 0; i < char_array.length; i++) {
+    for (var j = 0; j < char_array.length; j++) {
+        //saving both characters as key
+        var key = char_array[i] + char_array[j];
+       
+        //running trough all possible secrets
+        for (var z = 1000; z < 9999; z++) {
+            //parsing z to string to became a secret
+            var secret = z.toString();
+           
+            //creating a hash with the key
+            var hmac_hash = crypto.createHmac('sha256', key);
+            //updating the hash with the secret
+            hmac_hash.update(secret);
+            //getting the hash
+            var hash = hmac_hash.digest('hex');
+           
+            console.log(key + "," + secret + " " + hash);
+           
+            //checking if the hash is the one we are looking for
+            if (hash == hash_to_find) {
+                console.log("--------------------FOUND RESULT--------------------");
+                console.log(key + "," + secret + " " + hash);
+                console.log("--------------------FOUND RESULT--------------------");
+                process.exit();
+            }
+        }
+    }
+}
+
+//----------------------TESTE DE HASH FORNECIDA----------------------
+var key = 'AA';
+var secret = '1000';
+var hmac_hash = crypto.createHmac('sha256', key);
+hmac_hash.update(secret);
+var result = hmac_hash.digest('hex');
+console.log(key + "," + secret + " " + result);
+//-------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,25 @@
+What were the key and secret values that originated this HMAC_SHA256 digest?
+
+5f1cfde9d3ba56450f725230cd48a261a215e700b1ee74c104ee1b84ddc4445e
+ 
+
+Take into account that:
+
+it was used the HMAC algorithm with SHA256
+the secret value is a random number from 1000 to 9999
+the key is 2 random chars from this list:
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÀÁÂÃÇÈÉÊÌÍÒÓÔÕÙÚÛàáâãçèéêìíîòóôõùúû
+ 
+
+For example, If key='AA' and secret='1000', then the HMAC value is (use this example to test your code):
+
+HMAC_SHA256(AA,1000) = 54d5c852753f60474c152bdfe763b09bd9491fe02629ba098201cbb59c41b046
+ 
+
+Notes:
+
+in order to findout the key and secret values you must perform a brute force attack -- it can take several minutes to find the answer;
+you can use whatever programing language you want;
+each wrong attempt will decrease your final score by 10%;
+the answer CANNOT have any spaces (before or after) and must be like this: key,secret (with a coma separating the key from the secret) for example:
+AA,1000
